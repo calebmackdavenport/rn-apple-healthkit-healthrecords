@@ -8,7 +8,6 @@
 
 #import "RCTAppleHealthKit+Methods_Allergy.h"
 #import "RCTAppleHealthKit+Queries.h"
-#import "RCTAppleHealthKit+Utils.h"
 
 @implementation RCTAppleHealthKit (Methods_Allergy)
 
