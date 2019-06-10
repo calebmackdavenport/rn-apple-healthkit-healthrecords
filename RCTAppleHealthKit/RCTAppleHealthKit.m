@@ -90,24 +90,19 @@ RCT_EXPORT_METHOD(getClinicalVitalRecords:(NSDictionary *)input callback:(RCTRes
         NSDictionary* permissions =[input objectForKey:@"permissions"];
         if(permissions != nil){
             NSArray* readPermsArray = [permissions objectForKey:@"read"];
-            NSArray* writePermsArray = [permissions objectForKey:@"write"];
             NSSet* readPerms = [self getReadPermsFromOptions:readPermsArray];
-            NSSet* writePerms = [self getWritePermsFromOptions:writePermsArray];
 
             if(readPerms != nil) {
                 readDataTypes = readPerms;
-            }
-            if(writePerms != nil) {
-                writeDataTypes = writePerms;
             }
         } else {
             callback(@[RCTMakeError(@"permissions must be provided in the initialization options", nil, nil)]);
             return;
         }
 
-        // make sure at least 1 read or write permission is provided
-        if(!writeDataTypes && !readDataTypes){
-            callback(@[RCTMakeError(@"at least 1 read or write permission must be set in options.permissions", nil, nil)]);
+        // make sure at least 1 permission is provided
+        if(!readDataTypes){
+            callback(@[RCTMakeError(@"at least 1 permission must be set in options.permissions", nil, nil)]);
             return;
         }
 
@@ -135,12 +130,6 @@ RCT_EXPORT_METHOD(authorizationStatusForType:(NSString *)type
     }
 
     if ([HKHealthStore isHealthDataAvailable]) {
-        HKObjectType *objectType = [self getWritePermFromString:type];
-        if (objectType == nil) {
-            reject(@"unknown write permission", nil, nil);
-            return;
-        }
-
         NSString *status = [self getAuthorizationStatusString:[self.healthStore authorizationStatusForType:objectType]];
         resolve(status);
     } else {
@@ -151,10 +140,10 @@ RCT_EXPORT_METHOD(authorizationStatusForType:(NSString *)type
 - (void)getModuleInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     NSDictionary *info = @{
-            @"name" : @"react-native-apple-healthkit",
-            @"description" : @"A React Native bridge module for interacting with Apple HealthKit data",
+            @"name" : @"rn-apple-healthkit-healthrecords",
+            @"description" : @"A React Native bridge module for interacting with Apple Health Records data",
             @"className" : @"RCTAppleHealthKit",
-            @"author": @"Greg Wilson",
+            @"author": @"Mack Davenport",
     };
     callback(@[[NSNull null], info]);
 }
