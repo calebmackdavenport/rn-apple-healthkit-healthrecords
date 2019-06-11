@@ -85,8 +85,30 @@ AppleHealthKit.initHealthKit(options: Object, (err: string, results: Object) => 
 ```javascript
 /* Output for Apple Health example patient with a peanut allergy */
 [
-  "Peanuts",
-  {"id":"2","resourceType":"AllergyIntolerance","substance":{"text":"Peanuts","coding":[{"system":"http://snomed.info/sct","code":"256349002"}]},"recordedDate":"2015-02-18","patient":{"display":"Candace Salinas","reference":"Patient/1"},"reaction":[{"manifestation":[{"text":"Wheezing"}],"severity":"severe"}]}
+  displayName: "Peanuts",
+  FHIRResource: 
+  {
+    "id": "2",
+    "resourceType": "AllergyIntolerance",
+    "substance": {
+      "text": "Peanuts",
+      "coding": [{
+        "system": "http://snomed.info/sct",
+        "code": "256349002"
+      }]
+    },
+    "recordedDate": "2015-02-18",
+    "patient": {
+      "display": "Candace Salinas",
+      "reference": "Patient/1"
+    },
+    "reaction": [{
+      "manifestation": [{
+        "text": "Wheezing"
+      }],
+      "severity": "severe"
+    }]
+  }
 ]
 ```
 
