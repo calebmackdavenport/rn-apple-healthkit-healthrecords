@@ -40,9 +40,9 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 for (HKClinicalRecord *response in results) {
-                    //NSError *error;
-                    //NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response.FHIRResource.data options:kNilOptions error:&error];
-                    NSDictionary *obj = @{ @"displayName": response.displayName, @"FHIRResource": response.FHIRResource.data};
+                    NSError *error;
+                    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response.FHIRResource.data options:kNilOptions error:&error];
+                    NSDictionary *obj = @{ @"displayName": response.displayName, @"FHIRResource": json};
                     [data addObject:obj];
                 }
                 
