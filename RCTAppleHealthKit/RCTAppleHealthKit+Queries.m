@@ -35,17 +35,14 @@
         }
         
         if (completion) {
-            NSMutableArray *data = [NSMutableArray arrayWithCapacity:2];
+            NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 for (HKClinicalRecord *response in results) {
-                    NSMutableArray *obj = [NSMutableArray arrayWithCapacity:2];
                     NSError *error;
                     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response.FHIRResource.data options:kNilOptions error:&error];
-                    
-                    [obj addObject:response.displayName];
-                    [obj addObject:json];
+                    NSDictionary *obj = @{ @"displayName": response.displayName, @"FHIRResource": json};
                     [data addObject:obj];
                 }
                 
